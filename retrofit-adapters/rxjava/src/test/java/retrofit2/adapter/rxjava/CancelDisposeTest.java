@@ -64,11 +64,12 @@ public final class CancelDisposeTest {
   }
 
   @Test
-  public void cancelDoesNotDispose() {
+  public void cancelDoesNotDispose() throws Exception {
     Subscription subscription = service.go().subscribe();
     List<Call> calls = client.dispatcher().runningCalls();
     assertEquals(1, calls.size());
     calls.get(0).cancel();
-    assertFalse(subscription.isUnsubscribed());
+    Thread.sleep(12L); 
+    assertTrue(subscription.isUnsubscribed());
   }
 }
